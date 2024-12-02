@@ -1,0 +1,48 @@
+from python import Python
+from collections import List
+
+def list_split(file:String) -> Tuple[List[Int], List[Int]]:
+    row_list = List[String](file.split("\n"))
+    first_column = List[Int]()
+    second_column = List[Int]()
+    for row in row_list:
+        if row[].strip() != '':
+            first_column.append(atol(row[].split("   ")[0]))
+            second_column.append(atol(row[].split("   ")[1]))             
+    return Tuple(first_column, second_column)
+
+def first_quiz(file:String)-> Int:
+    builtins = Python.import_module("builtins")
+    var tuple = list_split(file)
+    var first_column = tuple[0]
+    var second_column = tuple[1]
+    sort(first_column)
+    sort(second_column)
+    var result: Int = 0
+    for i in range(first_column.__len__()):
+        result += builtins.abs(first_column[i] - second_column[i])
+    return result
+
+def second_quiz(file:String)-> Int:
+    var tuple = list_split(file)
+    var first_column = tuple[0]
+    var second_column = tuple[1]
+    var count_value:  Int = 0
+    for i in first_column:
+        count_value += (i[] * second_column.count(i[]))
+    return count_value    
+
+
+def read_text(file:String) -> String:
+    builtins = Python.import_module("builtins")
+    f = builtins.open(file)
+    text = f.read()
+    f.close()
+    return str(text)
+
+def main():
+    var input_1: String= read_text("day1.txt")
+    var result_1 = first_quiz(str(input_1))
+    print(result_1)
+    var result_2 = second_quiz(str(input_1))
+    print(result_2)

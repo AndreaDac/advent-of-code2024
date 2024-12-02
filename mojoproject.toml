@@ -1,0 +1,12 @@
+[project]
+authors = ["Andrea D'Acunto <andrea.dacunto@studenti.unibas.it>"]
+channels = ["conda-forge", "https://conda.modular.com/max"]
+description = "advent of Code 2024"
+name = "advent-of-code"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+max = ">=24.5.0,<25"
