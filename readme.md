@@ -1,0 +1,1 @@
+Mojo learning with aoc-2024
