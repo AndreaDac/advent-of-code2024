@@ -1,0 +1,92 @@
+from python import Python 
+from collections import List, Set
+
+def read_text(file:String) -> String:
+    builtins = Python.import_module("builtins")
+    f = builtins.open(file)
+    text = f.read()
+    f.close()
+    return str(text)
+
+def check_safe(row:List[String], dumpener:Bool)->Bool:
+    var list_int = List[Int]()
+    var list_ordered = List[Int]()
+    var list_ordered_reverse = List[Int]()
+    for element_string in row:
+        list_int.append(atol(element_string[]))  
+        list_ordered.append(atol(element_string[]))
+    sort(list_ordered)
+    for i in list_ordered:
+        list_ordered_reverse.append(i[])    
+    list_ordered_reverse.reverse()
+    if not dumpener:
+        return no_dumpner(list_int, list_ordered, list_ordered_reverse)  
+    else:
+        return with_dumper(list_int)  
+
+def diff_check(list_int:List[Int]) -> Bool:
+    var positive_count = 0
+    var negative_count = 0
+    var zero_count = 0
+    var list_diff = List[Int]()
+    for i in range(1, len(list_int)):
+        diff = list_int[i-1] - list_int[i]
+        list_diff.append(diff)
+    print(list_diff.__str__())    
+    for  i in list_diff:
+        if i[] > 0 and i[] < 4:
+            positive_count += 1
+        elif i[] < 0 and i[] > -4 :
+            negative_count += 1
+        elif i[] == 0:
+            zero_count += 1
+    if zero_count > 0:
+        return False 
+    if positive_count == len(list_int)-1 :
+        return True       
+    if negative_count == len(list_int)-1:
+        return True
+    return False              
+    
+
+def with_dumper(list_int: List[Int]) -> Bool:
+    if diff_check(list_int):
+        return True
+    else:
+        for i in range(len(list_int)):
+            var list_section = List[Int]()
+            for elem in list_int:
+                list_section.append(elem[])
+            list_section.pop(i)    
+            if diff_check(list_section):
+                return True   
+    return False
+
+def no_dumpner(list_int: List[Int], list_ordered:List[Int], list_ordered_reverse:List[Int]) -> Bool:
+    builtins = Python.import_module("builtins")
+    if list_int == list_ordered or list_int == list_ordered_reverse:
+        for i in range(1, len(list_int)):
+            var diff: Int = builtins.abs(list_int[i] - list_int[i-1])
+            if diff < 1 or diff > 3:
+                return False 
+    else:
+        return False
+    return True    
+
+def quiz(file:String) -> Tuple[Int, Int]:
+    var list_row = List[String](file.strip().split("\n"))
+    var count_1 = 0
+    var count_2 = 0
+    for row in list_row:
+        var list_int = List[String](row[].strip().split(" "))
+        if check_safe(list_int, False):
+            count_1 += 1
+        if check_safe(list_int, True):
+            count_2 += 1      
+    return Tuple(count_1, count_2)
+
+def main():
+    var input_1: String= read_text("day2.txt")    
+    var result_1 = quiz(str(input_1))
+    print(result_1[0])
+    print(result_1[1])
