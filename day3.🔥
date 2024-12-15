@@ -8,12 +8,27 @@ def read_text(file:String) -> String:
     f.close()
     return str(text)
 
+def restore_memory_second(input_string:String) -> Int:
+    builtins = Python.import_module("re")
+    builtins_fun = Python.import_module("builtins")
+    var pattern = r"(mul\((\d+),(\d+)\)|do\(\)|don't\(\))"
+    var do = True
+    matches = builtins.findall(pattern, input_string)
+    score = 0
+    for i in range(0, len(matches)):
+        if matches[i][0].find('mul') != -1 and do:
+            score += ((builtins_fun.int(matches[i][1]))*((builtins_fun.int(matches[i][2]))))
+        elif matches[i][0] == "don't()":
+            do = False
+        elif matches[i][0] == "do()":
+            do = True        
+    return score
+
 def restore_memory(input_string:String) -> Int:
     builtins = Python.import_module("re")
     builtins_fun = Python.import_module("builtins")
     var pattern = r"mul\((\d+),(\d+)\)"
     matches = builtins.findall(pattern, input_string)
-    print(matches)
     score = 0
     for i in range (0,len(matches)):
         var num1:Int = builtins_fun.int((matches[i][0]))
@@ -24,5 +39,6 @@ def restore_memory(input_string:String) -> Int:
 def main():
     var input_string:String = read_text('day3.txt')
     var result:Int =  restore_memory(input_string) 
-   #print("input string: " + input_string)
-    print("result: " + str(result))
+    var result_2:Int = restore_memory_second(input_string)
+    print("result 1: " + str(result))
+    print("result 2: " + str(result_2))
